@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
+import { StudentService } from '../services/student.service';
+import { Student } from '../modelos'; // Asegúrate de que la ruta sea correcta
+import { DoCheck } from '@angular/core';
+
 
 
 @Component({
@@ -7,10 +11,24 @@ import { Component } from '@angular/core';
   templateUrl: './student-inscription.component.html',
   styleUrl: './student-inscription.component.css'
 })
-export class StudentInscriptionComponent {
-   displayedColumns: string[] = ['nombre', 'curso'];
-  inscripciones = [
-    { nombre: 'Juan', curso: 'Angular' },
-    { nombre: 'Ana', curso: 'React' }
-  ];
+export class StudentInscriptionComponent implements DoCheck{
+  displayedColumns: string[] = ['nombre', 'apellido', 'curso', 'acciones'];
+  inscripciones: Student[] = [];
+
+  constructor(private studentService: StudentService) {
+    this.loadStudents();
+  }
+
+  ngDoCheck() {
+    this.inscripciones = this.studentService.getStudents();
+  }
+
+  loadStudents() {
+    this.inscripciones = this.studentService.getStudents();
+  }
+
+  eliminarAlumno(index: number) {
+    this.studentService.removeStudent(index);
+    this.loadStudents();
+  }
 }

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { StudentService } from '../services/student.service';
+import { Student } from '../modelos'; // Asegúrate de que la ruta sea correcta
 
 @Component({
   selector: 'app-student-form',
@@ -10,7 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class StudentFormComponent {
   alumnoForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private studentService: StudentService) {
     this.alumnoForm = this.formBuilder.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -21,12 +23,13 @@ export class StudentFormComponent {
 
   onSubmit() {
     if (this.alumnoForm.valid) {
-      const alumnoData = this.alumnoForm.value;
-      console.log('Alumno inscrito:', alumnoData);
-      // Aquí puedes agregar lógica para guardar el alumno o emitir un evento
+      const alumnoData: Student = {
+        nombre: this.alumnoForm.value.nombre,
+        apellido: this.alumnoForm.value.apellido,
+        curso: this.alumnoForm.value.curso
+      };
+      this.studentService.addStudent(alumnoData);
       this.alumnoForm.reset();
-    } else {
-      console.log('Formulario no válido');
     }
   }
 }
