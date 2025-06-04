@@ -9,13 +9,14 @@ import { StudentCoursesComponent } from './student-courses.component';
 
 @NgModule({
   declarations: [StudentCoursesComponent],
-  imports: [CommonModule
-    , MatInputModule
-    , MatButtonModule
-    , MatFormFieldModule
-    , MatSelectModule
-    , MatListModule
+  imports: [
+    CommonModule,
+    MatInputModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatListModule,
   ],
-  exports: [StudentCoursesComponent]
+  exports: [StudentCoursesComponent],
 })
-export class StudentCoursesModule { }
+export class StudentCoursesModule {}

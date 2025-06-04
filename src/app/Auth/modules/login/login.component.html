@@ -1,0 +1,23 @@
+<div class="login-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Iniciar Sesión</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Usuario</mat-label>
+          <input matInput formControlName="username" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" formControlName="password" required>
+        </mat-form-field>
+        <div *ngIf="loginError" class="error-message">
+          Usuario o contraseña incorrectos.
+        </div>
+        <button mat-raised-button color="primary" class="full-width" type="submit">Ingresar</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

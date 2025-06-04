@@ -7,18 +7,18 @@ import { StudentCoursesModule } from './Alumnos/student-courses/student-courses.
 import { StudentInscriptionModule } from './Alumnos/student-inscription/student-inscription.module';
 import { NavBarComponent } from './Alumnos/components/nav-bar/nav-bar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
+import { HomeComponent } from './Alumnos/home/home.component';
 
 @NgModule({
-  declarations: [ AppComponent, NavBarComponent],
+  declarations: [ AppComponent, NavBarComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     StudentFormModule,
     StudentCoursesModule,
     StudentInscriptionModule,
-    MatToolbarModule,
-    MatButtonModule
+    MatToolbarModule
+    
 ],
   providers: [],
   bootstrap: [AppComponent]
