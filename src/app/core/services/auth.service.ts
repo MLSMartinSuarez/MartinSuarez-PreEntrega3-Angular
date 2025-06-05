@@ -5,11 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
   private readonly TOKEN_KEY = 'auth_token';
-  private readonly USER = { username: 'admin', password: 'admin123' };
+  private readonly USER = { username: 'martin', password: 'coder' };
 
   login(username: string, password: string): boolean {
     if (username === this.USER.username && password === this.USER.password) {
-      localStorage.setItem(this.TOKEN_KEY, 'token123');
+      localStorage.setItem(this.TOKEN_KEY, 'tokenCoder');
       return true;
     }
     return false;

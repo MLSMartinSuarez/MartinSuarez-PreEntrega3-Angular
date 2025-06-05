@@ -11,7 +11,7 @@ import { StudentInscriptionModule } from '../student-inscription/student-inscrip
     CommonModule,
     StudentCoursesModule,
     StudentFormModule,
-    StudentInscriptionModule
+    StudentInscriptionModule,
   ],
   exports: [],
 })
