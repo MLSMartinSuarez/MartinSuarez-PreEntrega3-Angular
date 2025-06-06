@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'angular-preentrega-3'`, () => {
+  it(`should have as title 'Inscripcion de Cursos de Programacion'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('angular-preentrega-3');
+    expect(app.title).toEqual('Inscripcion de Cursos de Programacion');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, angular-preentrega-3');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Inscripcion de Cursos de Programacion');
   });
 });
