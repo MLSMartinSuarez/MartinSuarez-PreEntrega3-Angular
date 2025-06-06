@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "martin",
+      "email": "martin@gmail.com",
+      "password": "coder",
+      "role": "administrator",
+      "token": "tokenCoder"
+    }
+  ]
+}

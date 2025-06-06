@@ -27,11 +27,12 @@ export class LoginComponent {
 
   onLogin() {
     const { username, password } = this.loginForm.value;
-    if (this.authService.login(username, password)) {
-      this.loginError = false;
-      this.router.navigate(['/home']);
-    } else {
-      this.loginError = true;
-    }
+    const user = this.authService.login(username, password);
+    // if (this.authService.login(username, password)) {
+    //   this.loginError = false;
+    //   this.router.navigate(['/home']);
+    // } else {
+    //   this.loginError = true;
+    // }
   }
 }

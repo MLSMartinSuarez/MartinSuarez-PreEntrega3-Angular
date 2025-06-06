@@ -3,3 +3,12 @@ export interface Student {
   apellido: string;
   curso: string;
 }
+
+export interface Users {
+  id: number;
+  username: string;
+  email: string;
+  password: string;
+  role: string;
+  token: string; 
+}

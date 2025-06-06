@@ -8,6 +8,7 @@ import { StudentInscriptionModule } from './Alumnos/student-inscription/student-
 import { NavBarComponent } from './Alumnos/components/nav-bar/nav-bar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HomeComponent } from './Alumnos/home/home.component';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
   declarations: [ AppComponent, NavBarComponent, HomeComponent],
@@ -20,7 +21,7 @@ import { HomeComponent } from './Alumnos/home/home.component';
     MatToolbarModule
     
 ],
-  providers: [],
+  providers: [provideHttpClient(withFetch())],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
