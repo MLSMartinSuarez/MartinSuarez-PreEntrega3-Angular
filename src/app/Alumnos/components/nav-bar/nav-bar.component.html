@@ -1,7 +1,8 @@
-<mat-toolbar color="primary" class="navbar">
+<mat-toolbar class="navbar">
   <span class="logo">Inscripción Alumnos</span>
   <span class="spacer"></span>
   <button mat-button>Inicio</button>
   <button mat-button>Cursos</button>
   <button mat-button>Inscripciones</button>
+  <h2 *ngIf="(auth.authUser$ | async) as user"> {{'Bienvenido ' + user.username + ' - '  + user.role}} </h2>
 </mat-toolbar>

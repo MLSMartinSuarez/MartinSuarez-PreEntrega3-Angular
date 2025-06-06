@@ -2,22 +2,17 @@ import { Injectable } from '@angular/core';
 import { Users } from '../../Alumnos/modelos/index';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router) {}
 
-  USER: Users = {
-    id: 1,
-    username: 'martin',
-    email: 'martin@gmail.com',
-    password: 'coder',
-    role: 'administrator',
-    token: 'tokenCoder',
-  };
+  private _authUser$ = new BehaviorSubject<Users | null>(null);
+  public authUser$ = this._authUser$.asObservable();
+
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(username: string, password: string): void {
     this.http
@@ -30,16 +25,13 @@ export class AuthService {
           if (user) {
             localStorage.setItem('token', user.token);
             this.router.navigate(['home']);
+            this._authUser$.next(user);
             console.log('Login successful:', user);
           } else {
             console.error('Login failed: Invalid username or password');
           }
         },
       });
-  }
-
-  logout(): void {
-    localStorage.removeItem('token');
   }
 
   isAuthenticated(): boolean {
@@ -53,11 +45,20 @@ export class AuthService {
       map ((response) => {
         const user = response[0];
         if (user) {
+          localStorage.setItem('token', user.token);
+          this._authUser$.next(user);
           return user;
         } else {
           return false; 
         }
       })
     )
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    this._authUser$.next(null);
+    this.router.navigate(['login']);
+    console.log('User logged out');
   }
 }

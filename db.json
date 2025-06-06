@@ -5,8 +5,16 @@
       "username": "martin",
       "email": "martin@gmail.com",
       "password": "coder",
-      "role": "administrator",
+      "role": "admin",
       "token": "tokenCoder"
+    },
+    {
+      "id": 2,
+      "username": "alumno",
+      "email": "alumno@gmail.com",
+      "password": "alumno",
+      "role": "alumno",
+      "token": "alumnoToken"
     }
   ]
 }
