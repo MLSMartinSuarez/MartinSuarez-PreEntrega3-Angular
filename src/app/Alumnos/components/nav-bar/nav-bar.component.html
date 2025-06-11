@@ -1,8 +1,18 @@
 <mat-toolbar class="navbar">
-  <span class="logo">Inscripción Alumnos</span>
+  <span class="logo">
+    <mat-icon class="logoIcon">school</mat-icon>
+    Inscripción Alumnos
+  </span>
   <span class="spacer"></span>
-  <button mat-button>Inicio</button>
-  <button mat-button>Cursos</button>
-  <button mat-button>Inscripciones</button>
-  <h2 *ngIf="(auth.authUser$ | async) as user"> {{'Bienvenido ' + user.username + ' - '  + user.role}} </h2>
+  <button mat-button class="navBtn">Inicio</button>
+  <button mat-button class="navBtn">Cursos</button>
+  <button mat-button class="navBtn">Inscripciones</button>
+  <span class="userInfo" *ngIf="auth.authUser$ | async as user">
+    <mat-icon>person</mat-icon>
+    {{ "Bienvenido " + user.username + " - " + user.role }}
+    <button mat-stroked-button color="warn" class="logoutBtn" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      Logout
+    </button>
+  </span>
 </mat-toolbar>

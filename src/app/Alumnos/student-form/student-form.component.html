@@ -1,27 +1,60 @@
-<form [formGroup]="alumnoForm" (ngSubmit)="onSubmit()">
-  <mat-form-field appearance="fill">
-    <mat-label>Nombre</mat-label>
-    <input matInput formControlName="nombre" required />
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Apellido</mat-label>
-    <input matInput formControlName="apellido" required />
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Email</mat-label>
-    <input matInput formControlName="email" required />
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Curso</mat-label>
-    <mat-select formControlName="curso" required>
-      <mat-option value="Angular">Angular</mat-option>
-      <mat-option value="React">React</mat-option>
-      <mat-option value="Vue">Vue</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <button mat-raised-button color="primary" type="submit">Inscribir</button>
-</form>
+<ng-container *ngIf="auth.authUser$ | async as user">
+  <ng-container *ngIf="user.role === 'alumno'; else adminForm">
+    <ng-container *ngIf="!inscripto; else yaInscripto">
+      <form [formGroup]="alumnoForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="nombre" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Apellido</mat-label>
+          <input matInput formControlName="apellido" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Curso</mat-label>
+          <mat-select formControlName="curso" required>
+            <mat-option value="Angular">Angular</mat-option>
+            <mat-option value="React">React</mat-option>
+            <mat-option value="Vue">Vue</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Inscribir</button>
+      </form>
+    </ng-container>
+    <ng-template #yaInscripto>
+      <div>
+        Ya te haz inscripto al curso de <b>{{ inscripto?.curso }}</b>, arranca en agosto.
+      </div>
+    </ng-template>
+  </ng-container>
+  <ng-template #adminForm>
+    <!-- Aquí puedes dejar el form original para admin si lo deseas -->
+    <form [formGroup]="alumnoForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre" required />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Apellido</mat-label>
+        <input matInput formControlName="apellido" required />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" required />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Curso</mat-label>
+        <mat-select formControlName="curso" required>
+          <mat-option value="Angular">Angular</mat-option>
+          <mat-option value="React">React</mat-option>
+          <mat-option value="Vue">Vue</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Inscribir</button>
+    </form>
+  </ng-template>
+</ng-container>

@@ -9,4 +9,10 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class NavBarComponent {
   constructor( public auth: AuthService) {}
+
+  logout(): void {
+    this.auth.logout();
+  }
 }
+
+

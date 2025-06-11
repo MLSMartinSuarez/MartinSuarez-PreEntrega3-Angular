@@ -8,6 +8,7 @@ import { StudentInscriptionModule } from './Alumnos/student-inscription/student-
 import { NavBarComponent } from './Alumnos/components/nav-bar/nav-bar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { HomeComponent } from './Alumnos/home/home.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
@@ -20,7 +21,8 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
     StudentCoursesModule,
     StudentInscriptionModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
 ],
   providers: [provideHttpClient(withFetch())],
   bootstrap: [AppComponent]

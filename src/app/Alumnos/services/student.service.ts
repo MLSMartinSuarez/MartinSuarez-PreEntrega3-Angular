@@ -5,7 +5,13 @@ import { Student } from './../modelos';
   providedIn: 'root',
 })
 export class StudentService {
-  students: Student[] = [];
+  students: Student[] = [
+    { nombre: 'Facundo', apellido: 'Caceres', curso: 'Angular' },
+    { nombre: 'Hernan', apellido: 'Lorenzo', curso: 'Vue' },
+    { nombre: 'Carlos', apellido: 'Gao', curso: 'Angular' },
+    { nombre: 'Arian', apellido: 'Girardi', curso: 'React ' },
+    { nombre: 'Natalia', apellido: 'Martinez', curso: 'React' },
+  ];
 
   getStudents(): Student[] {
     return this.students;
