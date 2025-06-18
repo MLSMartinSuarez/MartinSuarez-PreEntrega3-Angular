@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
+import { StudentCoursesComponent } from './Alumnos/student-courses/student-courses.component';
 import { authenticationGuard } from './core/guards/authentication.guard';
 import { HomeComponent } from './Alumnos/home/home.component';
 
@@ -12,6 +12,11 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [authenticationGuard],
+  },
+  {
+    path: 'cursos',
+    component: StudentCoursesComponent,
     canActivate: [authenticationGuard],
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },

@@ -4,13 +4,12 @@
     Inscripción Alumnos
   </span>
   <span class="spacer"></span>
-  <button mat-button class="navBtn">Inicio</button>
-  <button mat-button class="navBtn">Cursos</button>
-  <button mat-button class="navBtn">Inscripciones</button>
+  <a mat-button class="navBtn" routerLink="/cursos" routerLinkActive="active-link">Cursos</a>
+  <a mat-button class="navBtn" routerLink="/home" routerLinkActive="active-link">Inscripciones</a>
   <span class="userInfo" *ngIf="auth.authUser$ | async as user">
     <mat-icon>person</mat-icon>
     {{ "Bienvenido " + user.username + " - " + user.role }}
-    <button mat-stroked-button color="warn" class="logoutBtn" (click)="logout()">
+    <button mat-stroked-button color="warn" class="logoutBtn" type="button" (click)="logout()">
       <mat-icon>logout</mat-icon>
       Logout
     </button>

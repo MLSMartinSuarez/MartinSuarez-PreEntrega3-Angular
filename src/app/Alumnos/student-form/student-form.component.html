@@ -17,9 +17,7 @@
         <mat-form-field appearance="fill">
           <mat-label>Curso</mat-label>
           <mat-select formControlName="curso" required>
-            <mat-option value="Angular">Angular</mat-option>
-            <mat-option value="React">React</mat-option>
-            <mat-option value="Vue">Vue</mat-option>
+            <mat-option *ngFor="let curso of cursos" [value]="curso">{{ curso }}</mat-option>
           </mat-select>
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit">Inscribir</button>
@@ -49,9 +47,7 @@
       <mat-form-field appearance="fill">
         <mat-label>Curso</mat-label>
         <mat-select formControlName="curso" required>
-          <mat-option value="Angular">Angular</mat-option>
-          <mat-option value="React">React</mat-option>
-          <mat-option value="Vue">Vue</mat-option>
+          <mat-option *ngFor="let curso of cursos" [value]="curso">{{ curso }}</mat-option>
         </mat-select>
       </mat-form-field>
       <button mat-raised-button color="primary" type="submit">Inscribir</button>

@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 import { StudentCoursesModule } from '../student-courses/student-courses.module';
 import { StudentFormModule } from '../student-form/student-form.module';
 import { StudentInscriptionModule } from '../student-inscription/student-inscription.module';
+import { NavBarModule } from '../components/nav-bar/nav-bar.module';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { StudentInscriptionModule } from '../student-inscription/student-inscrip
     CommonModule,
     StudentCoursesModule,
     StudentFormModule,
-    StudentInscriptionModule
+    StudentInscriptionModule,
+    NavBarModule
   ],
   exports: [],
 })

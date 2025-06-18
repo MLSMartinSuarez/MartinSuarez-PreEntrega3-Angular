@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StudentService } from '../services/student.service';
-import { Student } from '../modelos'; // Asegúrate de que la ruta sea correcta
+import { Student } from '../modelos';
 import { AuthService } from '../../core/services/auth.service';
+import { CursosService } from '../../core/services/courses.service';
 
 @Component({
   selector: 'app-student-form',
@@ -12,9 +13,15 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class StudentFormComponent {
   alumnoForm: FormGroup;
-   inscripto: any = null; 
+  inscripto: any = null;
+  cursos: string[] = [];
 
-  constructor(private formBuilder: FormBuilder, private studentService: StudentService, public auth: AuthService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private studentService: StudentService,
+    public auth: AuthService,
+    private cursosService: CursosService
+  ) {
     this.alumnoForm = this.formBuilder.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -22,9 +29,10 @@ export class StudentFormComponent {
       curso: ['', Validators.required]
     });
 
+    this.cursos = this.cursosService.getCursos();
+
     this.auth.authUser$.subscribe(user => {
       if (user && user.role === 'alumno') {
-        // Busca si el alumno ya está inscripto
         const inscripcion = this.studentService.getStudents().find(
           student => student.nombre === user.username
         );
@@ -34,7 +42,6 @@ export class StudentFormComponent {
       }
     });
   }
-  
 
   onSubmit() {
     if (this.alumnoForm.valid) {
@@ -44,11 +51,8 @@ export class StudentFormComponent {
         curso: this.alumnoForm.value.curso
       };
       this.studentService.addStudent(alumnoData);
-       this.inscripto = alumnoData;
+      this.inscripto = alumnoData;
       this.alumnoForm.reset();
     }
   }
-
-  
-  
 }

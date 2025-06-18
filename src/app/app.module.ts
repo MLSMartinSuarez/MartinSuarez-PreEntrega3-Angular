@@ -5,15 +5,15 @@ import { AppComponent } from './app.component';
 import { StudentFormModule } from './Alumnos/student-form/student-form.module';
 import { StudentCoursesModule } from './Alumnos/student-courses/student-courses.module';
 import { StudentInscriptionModule } from './Alumnos/student-inscription/student-inscription.module';
-import { NavBarComponent } from './Alumnos/components/nav-bar/nav-bar.component';
+import { NavBarModule } from './Alumnos/components/nav-bar/nav-bar.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { HomeComponent } from './Alumnos/home/home.component';
+import { HomeModule } from './Alumnos/home/home.module';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
-  declarations: [ AppComponent, NavBarComponent, HomeComponent],
+  declarations: [ AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -22,7 +22,10 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
     StudentInscriptionModule,
     MatToolbarModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,  
+    NavBarModule,
+    HomeModule
+    
 ],
   providers: [provideHttpClient(withFetch())],
   bootstrap: [AppComponent]

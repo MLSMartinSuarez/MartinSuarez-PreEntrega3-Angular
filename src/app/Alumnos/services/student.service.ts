@@ -22,6 +22,10 @@ export class StudentService {
   }
 
   removeStudent(index: number): void {
-    this.students = this.students.filter((iterador, i) => i !== index);
+    this.students = this.students.filter((_, i) => i !== index);
+  }
+
+  updateStudent(index: number, student: Student): void {
+    this.students = this.students.map((s, i) => (i === index ? student : s));
   }
 }

@@ -1,3 +1,28 @@
-<mat-list>
-      <mat-list-item *ngFor="let curso of cursos">{{ curso }}</mat-list-item>
-</mat-list>
+<app-nav-bar></app-nav-bar>
+<div class="courses-container">
+  <h2>Cursos Disponibles</h2>
+  <ul class="courses-list">
+    <li *ngFor="let curso of cursos; let i = index" class="course-item">
+      <span *ngIf="editIndex !== i">{{ curso }}</span>
+      <input *ngIf="editIndex === i"
+             [value]="editCurso"
+             (input)="onEditCursoInput($event)"
+             class="edit-input"/>
+      <ng-container *ngIf="(auth.authUser$ | async)?.role === 'admin'">
+        <button mat-icon-button color="primary" *ngIf="editIndex !== i" (click)="editarCurso(i)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" *ngIf="editIndex === i" (click)="guardarCurso(i)">
+          <mat-icon>check</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" *ngIf="editIndex === i" (click)="cancelarEdicion()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </ng-container>
+    </li>
+  </ul>
+  <div *ngIf="(auth.authUser$ | async)?.role === 'admin'" class="add-course-form">
+    <input [value]="nuevoCurso" (input)="onNuevoCursoInput($event)" placeholder="Nuevo curso" class="add-input"/>
+    <button mat-raised-button color="primary" (click)="agregarCurso()" [disabled]="!nuevoCurso">Agregar</button>
+  </div>
+</div>

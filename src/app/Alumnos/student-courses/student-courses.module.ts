@@ -1,21 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatListModule } from '@angular/material/list';
+import { MatInputModule } from '@angular/material/input';
 import { StudentCoursesComponent } from './student-courses.component';
+import { NavBarModule } from '../components/nav-bar/nav-bar.module';
 
 @NgModule({
   declarations: [StudentCoursesComponent],
   imports: [
     CommonModule,
-    MatInputModule,
+    MatIconModule,
     MatButtonModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatListModule,
+    MatInputModule,
+    NavBarModule
   ],
   exports: [StudentCoursesComponent],
 })
