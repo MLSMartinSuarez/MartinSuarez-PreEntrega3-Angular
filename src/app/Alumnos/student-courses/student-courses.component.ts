@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
-import { CursosService } from '../../core/services/courses.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectAvailableCourses } from '../../store/courses/courses.selectors';
+import { addCourse, updateCourse } from '../../store/courses/courses.actions';
 
 @Component({
   selector: 'app-student-courses',
@@ -8,50 +11,49 @@ import { CursosService } from '../../core/services/courses.service';
   templateUrl: './student-courses.component.html',
   styleUrl: './student-courses.component.css'
 })
-export class StudentCoursesComponent {
-  cursos: string[] = [];
-  nuevoCurso = '';
+export class StudentCoursesComponent {  courses$: Observable<string[]>;
+  newCourse = '';
   editIndex: number | null = null;
-  editCurso = '';
-
-  constructor(public auth: AuthService, private cursosService: CursosService) {
-    this.cursos = this.cursosService.getCursos();
+  editCourseValue = '';
+  
+  constructor(public auth: AuthService, private store: Store) {
+    this.courses$ = this.store.select(selectAvailableCourses);
   }
 
-  onNuevoCursoInput(event: Event) {
+  onNewCourseInput(event: Event) {
     const input = event.target as HTMLInputElement;
-    this.nuevoCurso = input.value;
+    this.newCourse = input.value;
   }
 
-  onEditCursoInput(event: Event) {
+  onEditCourseInput(event: Event) {
     const input = event.target as HTMLInputElement;
-    this.editCurso = input.value;
+    this.editCourseValue = input.value;
   }
 
-  agregarCurso() {
-    if (this.nuevoCurso.trim()) {
-      this.cursosService.addCursos(this.nuevoCurso.trim());
-      this.cursos = this.cursosService.getCursos();
-      this.nuevoCurso = '';
+  addCourse() {
+    if (this.newCourse.trim()) {
+      this.store.dispatch(addCourse({ course: this.newCourse.trim() }));
+      this.newCourse = '';
     }
   }
 
-  editarCurso(index: number) {
+  editCourse(index: number) {
     this.editIndex = index;
-    this.editCurso = this.cursos[index];
+    this.courses$.subscribe(courses => {
+      this.editCourseValue = courses[index];
+    }).unsubscribe();
   }
 
-  guardarCurso(index: number) {
-    if (this.editCurso.trim()) {
-      this.cursosService.updateCursos(index, this.editCurso.trim());
-      this.cursos = this.cursosService.getCursos();
+  saveCourse(index: number) {
+    if (this.editCourseValue.trim()) {
+      this.store.dispatch(updateCourse({ index, course: this.editCourseValue.trim() }));
       this.editIndex = null;
-      this.editCurso = '';
+      this.editCourseValue = '';
     }
   }
 
-  cancelarEdicion() {
+  cancelEdit() {
     this.editIndex = null;
-    this.editCurso = '';
+    this.editCourseValue = '';
   }
 }

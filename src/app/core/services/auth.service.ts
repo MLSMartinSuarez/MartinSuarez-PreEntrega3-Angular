@@ -13,7 +13,6 @@ export class AuthService {
   public authUser$ = this._authUser$.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
-
   login(username: string, password: string): void {
     this.http
       .get<Users[]>(
@@ -26,9 +25,6 @@ export class AuthService {
             localStorage.setItem('token', user.token);
             this.router.navigate(['home']);
             this._authUser$.next(user);
-            console.log('Login successful:', user);
-          } else {
-            console.error('Login failed: Invalid username or password');
           }
         },
       });
@@ -54,11 +50,9 @@ export class AuthService {
       })
     )
   }
-
   logout(): void {
     localStorage.removeItem('token');
     this._authUser$.next(null);
     this.router.navigate(['login']);
-    console.log('User logged out');
   }
 }

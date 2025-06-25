@@ -3,18 +3,18 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class CursosService {
-  private cursos: string[] = ['Angular', 'React', 'Vue'];
+export class CoursesService {
+  private courses: string[] = ['Angular', 'React', 'Vue'];
 
-  getCursos(): string[] {
-    return this.cursos;
+  getCourses(): string[] {
+    return this.courses;
   }
 
-  addCursos(curso: string): void {
-    this.cursos = [...this.cursos, curso];
+  addCourse(course: string): void {
+    this.courses = [...this.courses, course];
   }
 
-  updateCursos(index: number, curso: string): void {
-    this.cursos[index] = curso;
+  updateCourse(index: number, course: string): void {
+    this.courses[index] = course;
   }
 }

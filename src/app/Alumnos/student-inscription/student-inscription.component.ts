@@ -4,7 +4,9 @@ import { Student } from '../modelos';
 import { DoCheck } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { CursosService } from '../../core/services/courses.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectAvailableCourses } from '../../store/courses/courses.selectors';
 
 @Component({
   selector: 'app-student-inscription',
@@ -13,52 +15,50 @@ import { CursosService } from '../../core/services/courses.service';
   styleUrl: './student-inscription.component.css'
 })
 export class StudentInscriptionComponent implements DoCheck {
-  displayedColumns: string[] = ['nombre', 'apellido', 'curso', 'acciones'];
-  inscripciones: Student[] = [];
+  displayedColumns: string[] = ['name', 'lastname', 'course', 'actions'];
+  registrations: Student[] = [];
   editIndex: number | null = null;
   editForm: FormGroup;
-  cursos: string[] = [];
+  courses$: Observable<string[]>;
 
   constructor(
     private studentService: StudentService,
     public auth: AuthService,
     private fb: FormBuilder,
-    private cursosService: CursosService
+    private store: Store
   ) {
     this.loadStudents();
     this.editForm = this.fb.group({
-      nombre: [''],
-      apellido: [''],
-      curso: ['']
+      name: [''],
+      lastname: [''],
+      course: ['']
     });
-    this.cursos = this.cursosService.getCursos();
+    this.courses$ = this.store.select(selectAvailableCourses);
   }
 
   ngDoCheck() {
-    this.inscripciones = this.studentService.getStudents();
-    this.cursos = this.cursosService.getCursos();
+    this.registrations = this.studentService.getStudents();
   }
-
   loadStudents() {
-    this.inscripciones = this.studentService.getStudents();
+    this.registrations = this.studentService.getStudents();
   }
 
-  eliminarAlumno(index: number) {
+  removeStudent(index: number) {
     this.studentService.removeStudent(index);
     this.loadStudents();
   }
 
-  editarAlumno(index: number) {
+  editStudent(index: number) {
     this.editIndex = index;
-    const alumno = this.inscripciones[index];
+    const student = this.registrations[index];
     this.editForm.setValue({
-      nombre: alumno.nombre,
-      apellido: alumno.apellido,
-      curso: alumno.curso
+      name: student.name,
+      lastname: student.lastname,
+      course: student.course
     });
   }
 
-  guardarEdicion() {
+  saveEdit() {
     if (this.editForm.valid && this.editIndex !== null) {
       this.studentService.updateStudent(this.editIndex, this.editForm.value);
       this.editIndex = null;
@@ -66,7 +66,7 @@ export class StudentInscriptionComponent implements DoCheck {
     }
   }
 
-  cancelarEdicion() {
+  cancelEdit() {
     this.editIndex = null;
   }
 }

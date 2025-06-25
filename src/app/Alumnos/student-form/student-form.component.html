@@ -1,56 +1,55 @@
 <ng-container *ngIf="auth.authUser$ | async as user">
-  <ng-container *ngIf="user.role === 'alumno'; else adminForm">
-    <ng-container *ngIf="!inscripto; else yaInscripto">
-      <form [formGroup]="alumnoForm" (ngSubmit)="onSubmit()">
+  <ng-container *ngIf="user.role === 'student'; else adminForm">
+    <ng-container *ngIf="!registered; else alreadyRegistered">
+      <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="fill">
-          <mat-label>Nombre</mat-label>
-          <input matInput formControlName="nombre" required />
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" required />
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Apellido</mat-label>
-          <input matInput formControlName="apellido" required />
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastname" required />
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
           <input matInput formControlName="email" required />
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Curso</mat-label>
-          <mat-select formControlName="curso" required>
-            <mat-option *ngFor="let curso of cursos" [value]="curso">{{ curso }}</mat-option>
+          <mat-label>Course</mat-label>
+          <mat-select formControlName="course" required>
+            <mat-option *ngFor="let course of courses$ | async" [value]="course">{{ course }}</mat-option>
           </mat-select>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit">Inscribir</button>
+        <button mat-raised-button color="primary" type="submit">Register</button>
       </form>
     </ng-container>
-    <ng-template #yaInscripto>
+    <ng-template #alreadyRegistered>
       <div>
-        Ya te haz inscripto al curso de <b>{{ inscripto?.curso }}</b>, arranca en agosto.
+        You have already registered for the <b>{{ registered?.course }}</b> course, it starts in August.
       </div>
     </ng-template>
   </ng-container>
   <ng-template #adminForm>
-    <!-- Aquí puedes dejar el form original para admin si lo deseas -->
-    <form [formGroup]="alumnoForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="fill">
-        <mat-label>Nombre</mat-label>
-        <input matInput formControlName="nombre" required />
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required />
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Apellido</mat-label>
-        <input matInput formControlName="apellido" required />
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastname" required />
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" required />
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Curso</mat-label>
-        <mat-select formControlName="curso" required>
-          <mat-option *ngFor="let curso of cursos" [value]="curso">{{ curso }}</mat-option>
+        <mat-label>Course</mat-label>
+        <mat-select formControlName="course" required>
+          <mat-option *ngFor="let course of courses$ | async" [value]="course">{{ course }}</mat-option>
         </mat-select>
       </mat-form-field>
-      <button mat-raised-button color="primary" type="submit">Inscribir</button>
+      <button mat-raised-button color="primary" type="submit">Register</button>
     </form>
   </ng-template>
 </ng-container>

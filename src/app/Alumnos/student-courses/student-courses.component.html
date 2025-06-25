@@ -1,28 +1,28 @@
 <app-nav-bar></app-nav-bar>
 <div class="courses-container">
-  <h2>Cursos Disponibles</h2>
+  <h2>Available Courses</h2>
   <ul class="courses-list">
-    <li *ngFor="let curso of cursos; let i = index" class="course-item">
-      <span *ngIf="editIndex !== i">{{ curso }}</span>
-      <input *ngIf="editIndex === i"
-             [value]="editCurso"
-             (input)="onEditCursoInput($event)"
+    <li *ngFor="let course of courses$ | async; let courseIndex = index" class="course-item">
+      <span *ngIf="editIndex !== courseIndex">{{ course }}</span>
+      <input *ngIf="editIndex === courseIndex"
+             [value]="editCourseValue"
+             (input)="onEditCourseInput($event)"
              class="edit-input"/>
       <ng-container *ngIf="(auth.authUser$ | async)?.role === 'admin'">
-        <button mat-icon-button color="primary" *ngIf="editIndex !== i" (click)="editarCurso(i)">
+        <button mat-icon-button color="primary" *ngIf="editIndex !== courseIndex" (click)="editCourse(courseIndex)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="accent" *ngIf="editIndex === i" (click)="guardarCurso(i)">
+        <button mat-icon-button color="accent" *ngIf="editIndex === courseIndex" (click)="saveCourse(courseIndex)">
           <mat-icon>check</mat-icon>
         </button>
-        <button mat-icon-button color="warn" *ngIf="editIndex === i" (click)="cancelarEdicion()">
+        <button mat-icon-button color="warn" *ngIf="editIndex === courseIndex" (click)="cancelEdit()">
           <mat-icon>close</mat-icon>
         </button>
       </ng-container>
     </li>
   </ul>
   <div *ngIf="(auth.authUser$ | async)?.role === 'admin'" class="add-course-form">
-    <input [value]="nuevoCurso" (input)="onNuevoCursoInput($event)" placeholder="Nuevo curso" class="add-input"/>
-    <button mat-raised-button color="primary" (click)="agregarCurso()" [disabled]="!nuevoCurso">Agregar</button>
+    <input [value]="newCourse" (input)="onNewCourseInput($event)" placeholder="New course" class="add-input"/>
+    <button mat-raised-button color="primary" (click)="addCourse()" [disabled]="!newCourse">Add</button>
   </div>
 </div>

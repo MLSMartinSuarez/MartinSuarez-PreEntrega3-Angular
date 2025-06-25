@@ -11,11 +11,6 @@ export const authenticationGuard: CanActivateFn = (route, state) => {
   return authService.verifyToken().pipe(
     map(user => {
       const isAuthenticated = !!user;
-      console.log(
-        isAuthenticated
-          ? 'Guard activado: usuario autenticado'
-          : 'Guard activado: usuario NO autenticado'
-      );
       if (!isAuthenticated) {
         router.navigate(['login']);
       }

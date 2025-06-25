@@ -4,13 +4,12 @@ import { Student } from './../modelos';
 @Injectable({
   providedIn: 'root',
 })
-export class StudentService {
-  students: Student[] = [
-    { nombre: 'Facundo', apellido: 'Caceres', curso: 'Angular' },
-    { nombre: 'Hernan', apellido: 'Lorenzo', curso: 'Vue' },
-    { nombre: 'Carlos', apellido: 'Gao', curso: 'Angular' },
-    { nombre: 'Arian', apellido: 'Girardi', curso: 'React ' },
-    { nombre: 'Natalia', apellido: 'Martinez', curso: 'React' },
+export class StudentService {  students: Student[] = [
+    { name: 'Facundo', lastname: 'Caceres', course: 'Angular' },
+    { name: 'Hernan', lastname: 'Lorenzo', course: 'Vue' },
+    { name: 'Carlos', lastname: 'Gao', course: 'Angular' },
+    { name: 'Arian', lastname: 'Girardi', course: 'React ' },
+    { name: 'Natalia', lastname: 'Martinez', course: 'React' },
   ];
 
   getStudents(): Student[] {
@@ -20,12 +19,11 @@ export class StudentService {
   addStudent(student: Student): void {
     this.students = [...this.students, student];
   }
-
   removeStudent(index: number): void {
-    this.students = this.students.filter((_, i) => i !== index);
+    this.students = this.students.filter((student, currentIndex) => currentIndex !== index);
   }
 
   updateStudent(index: number, student: Student): void {
-    this.students = this.students.map((s, i) => (i === index ? student : s));
+    this.students = this.students.map((currentStudent, currentIndex) => (currentIndex === index ? student : currentStudent));
   }
 }

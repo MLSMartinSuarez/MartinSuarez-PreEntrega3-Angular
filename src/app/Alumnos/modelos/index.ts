@@ -1,7 +1,7 @@
 export interface Student {
-  nombre: string;
-  apellido: string;
-  curso: string;
+  name: string;
+  lastname: string;
+  course: string;
 }
 
 export interface Users {
